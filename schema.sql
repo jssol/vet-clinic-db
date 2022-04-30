@@ -52,4 +52,5 @@ CREATE TABLE visits (
 	VET_ID INTEGER,
 	ANIMALS_ID INTEGER
 );
+ALTER TABLE visits ADD COLUMN visitation_date DATE;
 
