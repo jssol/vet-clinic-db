@@ -16,3 +16,12 @@ UPDATE animals SET species = 'unspecified';
 SELECT * FROM animals;
 ROLLBACK;
 SELECT * FROM animals;
+
+/*Queries that set all the species with name ending with 'mon' to 'digimon' and the unassigned to 'pokemon' */
+
+BEGIN;
+UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon';
+SELECT * FROM animals;
+UPDATE animals SET species = 'pokemon' WHERE NOT name LIKE '%mon';
+SELECT * FROM animals;
+COMMIT;
