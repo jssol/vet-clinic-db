@@ -25,3 +25,11 @@ SELECT * FROM animals;
 UPDATE animals SET species = 'pokemon' WHERE NOT name LIKE '%mon';
 SELECT * FROM animals;
 COMMIT;
+
+/*Queries that delete the entire record in a transition and then rollback */
+
+BEGIN;
+DELETE FROM animals;
+SELECT * FROM animals;
+ROLLBACK;
+SELECT * FROM animals;
