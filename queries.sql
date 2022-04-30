@@ -94,7 +94,85 @@ GROUP BY (owners.full_name)
 ORDER BY COUNT(*) DESC 
 LIMIT 1;
 
+/* Queries for many to many relationships */
+SELECT animals.name
+FROM animals
+JOIN visits ON visits.animals_id = animals.id
+JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'William Tatcher'
+ORDER BY visitation_date DESC
+LIMIT 1;
 
+SELECT COUNT(animals.name)
+FROM visits
+JOIN animals ON visits.animals_id = animals.id
+JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Stephanie Mendez';
 
+SELECT ve.name AS vet_name, species.name AS Speciality
+FROM vets ve
+LEFT JOIN specializations spec
+ON ve.id = spec.vet_id
+LEFT JOIN species
+ON spec.species_id = species.id;
 
+SELECT a.name, vi.visitation_date, ve.name
+FROM animals a
+JOIN visits vi ON vi.animals_id = a.id
+JOIN vets ve ON vi.vet_id = ve.id
+WHERE
+	ve.name = 'Stephanie Mendez'
+  AND
+  vi.visitation_date
+  BETWEEN '2020-04-01' AND '2020-08-30';
+  
+SELECT a.name AS name, COUNT(a.name) AS most_viewed
+FROM animals a
+JOIN visits vi ON vi.animals_id = a.id 
+JOIN vets ve ON vi.vet_id = ve.id
+GROUP BY a.name
+ORDER BY most_viewed DESC
+LIMIT 1;
+
+SELECT ve.name AS vet_name, a.name AS animal_name, visitation_date
+FROM visits vi
+JOIN vets ve ON vi.vet_id = ve.id
+JOIN animals a ON vi.animals_id = a.id
+WHERE ve.name = 'Maisy Smith'
+ORDER BY visitation_date
+LIMIT 1;
+
+SELECT
+  a.name AS animal_name,
+  a.date_of_birth,
+  a.escape_attempts,
+  a.neutered,
+  a.weight_kg,
+  s.name AS species_name,
+  ve.name AS vet_name,
+  ve.age AS vet_age,
+  ve.date_of_graduation,
+  visitation_date
+FROM visits vi
+JOIN animals a ON vi.animals_id = a.id
+JOIN species s ON a.species_id = s.id
+JOIN vets ve ON vi.vet_id = ve.id
+ORDER BY visitation_date DESC
+LIMIT 1;
+
+SELECT species.name AS animal_name, COUNT(species.name)
+FROM visits vi
+JOIN animals a ON vi.animals_id = a.id
+JOIN species ON a.species_id = species.id
+JOIN vets ON vi.vet_id = vets.id
+WHERE vet_id = 2
+GROUP BY(species.name)
+LIMIT 1;
+
+SELECT species.name AS species_name
+FROM species
+JOIN visits ON visits.vet_id = species.id
+JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Maisy Smith'
+GROUP BY(species.name);
 
