@@ -56,3 +56,45 @@ SELECT NEUTERED, AVG(ESCAPE_ATTEMPTS) FROM animals GROUP BY NEUTERED;
 SELECT SPECIES, MIN(WEIGHT_KG), MAX(WEIGHT_KG) FROM animals GROUP BY SPECIES;
 SELECT DATE_OF_BIRTH, AVG(ESCAPE_ATTEMPTS) FROM animals GROUP BY DATE_OF_BIRTH HAVING DATE_OF_BIRTH BETWEEN '1990-01-01' AND '2000-01-01';
 
+/*Queries that answer analytical questions  using the join operation*/
+SELECT owners.full_name, animals.name 
+FROM animals 
+JOIN owners 
+	ON animals.owner_id = owners.id 
+	WHERE owners.full_name = 'Melody Pond';
+SELECT animals.name 
+FROM animals 
+JOIN species 
+	ON animals.species_id = species.id 
+	WHERE species.name = 'Pokemon';
+SELECT owners.full_name as owner, animals.name as animal 
+FROM owners 
+FULL JOIN animals 
+	ON owners.id = animals.owner_id;
+SELECT species.name as species, count(animals) as number 
+FROM species 
+JOIN animals 
+	ON species.id = animals.species_id 
+GROUP BY (species.name);
+SELECT owners.full_name as owner, animals.name as animals
+FROM animals 
+JOIN owners 
+	ON animals.owner_id = owners.id 
+	WHERE owners.full_name = 'Jennifer Orwell' AND animals.species_id = 2;
+SELECT owners.full_name as owner, animals.name as animals 
+FROM animals 
+JOIN owners 
+	ON animals.owner_id = owners.id 
+	WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+SELECT owners.full_name 
+FROM animals 
+JOIN owners 
+	ON animals.owner_id = owners.id 
+GROUP BY (owners.full_name) 
+ORDER BY COUNT(*) DESC 
+LIMIT 1;
+
+
+
+
+
