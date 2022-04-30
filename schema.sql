@@ -10,6 +10,8 @@ CREATE TABLE animals (
 
 ALTER TABLE animals ADD COLUMN species TEXT;
 
+/* Add two tables: owners and species */
+
 CREATE TABLE owners (
 	ID INTEGER SERIAL,
 	FULL_NAME TEXT,
@@ -18,12 +20,16 @@ CREATE TABLE owners (
 );
 
 CREATE TABLE species (
-	ID INTEGER SERIAL,
+	ID SERIAL,
 	NAME TEXT,
 	PRIMARY KEY(ID)
 );
 
+/* Alter animals table by deleting the species column, adding the species_id and owner_id foreign keys */
+
 ALTER TABLE animals DROP COLUMN species;
+ALTER TABLE animals ADD COLUMN species_id INTEGER;
 ALTER TABLE animals ADD FOREIGN KEY (species_id) REFERENCES species(ID);
-ALTER TABLE animals ADD FOREIGN KEY (owner_id) REFERENCES species(ID);
+ALTER TABLE animals ADD COLUMN owner_id INTEGER;
+ALTER TABLE animals ADD FOREIGN KEY (owner_id) REFERENCES owners(ID);
 
