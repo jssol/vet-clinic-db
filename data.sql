@@ -20,4 +20,20 @@ VALUES ('Sam Smith', 34),
 	   ('Melody Pond', 77),
 	   ('Dean Winchester', 14),
 	   ('Jodie Whittaker', 38);
+	   
+/* Insert owners into the owners table */
+INSERT INTO species (name) 
+VALUES ('Pokemon'),
+	   ('Digimon');
+	   
+/* Modify inserted animals so it includes the species_id value */
+UPDATE animals 
+SET species_id = (SELECT id FROM species WHERE name = 'Digimon') 
+WHERE name LIKE '%mon';
+SELECT * FROM animals;
+UPDATE animals 
+SET species_id = (SELECT id FROM species WHERE name = 'Pokemon') 
+WHERE NOT name LIKE '%mon';
+
+
 
