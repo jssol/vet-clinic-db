@@ -48,3 +48,8 @@ CREATE TABLE specializations (
 	SPECIES_ID INTEGER,
 );
 
+CREATE TABLE visits (
+	VET_ID INTEGER,
+	ANIMALS_ID INTEGER,
+);
+
