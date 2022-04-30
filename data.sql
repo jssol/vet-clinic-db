@@ -35,5 +35,20 @@ UPDATE animals
 SET species_id = (SELECT id FROM species WHERE name = 'Pokemon') 
 WHERE NOT name LIKE '%mon';
 
-
+/* Modify inserted animals so it includes the owner_id value */
+UPDATE animals 
+SET owner_id = (SELECT id FROM owners WHERE full_name = 'Sam Smith') 
+WHERE name = 'Agumon';
+SELECT * FROM animals;
+UPDATE animals 
+SET owner_id = (SELECT id FROM owners WHERE full_name = 'Jennifer Orwell') 
+WHERE name IN ('Gabumon', 'Pikachu');
+SELECT * FROM animals;
+UPDATE animals SET owner_id = (SELECT id FROM owners WHERE full_name = 'Bob') WHERE name IN ('Devimon', 'Plantmon');
+SELECT * FROM animals;
+UPDATE animals SET owner_id = (SELECT id FROM owners WHERE full_name = 'Melody Pond') 
+WHERE name IN ('Charmander', 'Squirtle', 'Blossom');
+SELECT * FROM animals;
+UPDATE animals SET owner_id = (SELECT id FROM owners WHERE full_name = 'Dean Winchester') WHERE name IN ('Angemon', 'Boarmon');
+SELECT * FROM animals;
 
