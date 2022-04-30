@@ -33,3 +33,16 @@ DELETE FROM animals;
 SELECT * FROM animals;
 ROLLBACK;
 SELECT * FROM animals;
+
+/*Queries that inverts all weight by -1, rollback to savepoint then inverts by -1 only weights inferior to zero */
+
+BEGIN;
+DELETE FROM animals WHERE date_of_birth > '2022-01-01';
+SELECT * FROM animals;
+SAVEPOINT SP1;
+UPDATE animals SET weight_kg = weight_kg * -1;
+SELECT * FROM animals;
+ROLLBACK TO SP1;
+SELECT * FROM animals;
+UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
+COMMIT;
